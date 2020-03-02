@@ -27,13 +27,17 @@ tile_width = tile_height = 50
 
 
 def load_level(filename):
-    filename = "data/" + filename
-    with open(filename, "r") as mapFile:
-        level_map = [line.strip() for line in mapFile]
-    max_width = max(map(len, level_map))
-    if max_width < 12:
-        max_width = 12
-    return list(map(lambda x: x.ljust(max_width, "."), level_map))
+    try:
+        filename = "data/" + filename
+        with open(filename, "r") as mapFile:
+            level_map = [line.strip() for line in mapFile]
+        max_width = max(map(len, level_map))
+        if max_width < 12:
+            max_width = 12
+        return list(map(lambda x: x.ljust(max_width, "."), level_map))
+    except FileNotFoundError:
+        print('Такого файла нет')
+        terminate()
 
 
 def get_level(args):
